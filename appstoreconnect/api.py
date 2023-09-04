@@ -38,6 +38,22 @@ class HttpMethod(Enum):
 	PATCH = 3
 	DELETE = 4
 
+class ProfileType(Enum):
+	IOS_APP_DEVELOPMENT = 'IOS_APP_DEVELOPMENT'
+	IOS_APP_STORE = 'IOS_APP_STORE'
+	IOS_APP_ADHOC = 'IOS_APP_ADHOC'
+	IOS_APP_INHOUSE = 'IOS_APP_INHOUSE'
+	MAC_APP_DEVELOPMENT = 'MAC_APP_DEVELOPMENT'
+	MAC_APP_STORE = 'MAC_APP_STORE'
+	MAC_APP_DIRECT = 'MAC_APP_DIRECT'
+	TVOS_APP_DEVELOPMENT = 'TVOS_APP_DEVELOPMENT'
+	TVOS_APP_STORE = 'TVOS_APP_STORE'
+	TVOS_APP_ADHOC = 'TVOS_APP_ADHOC'
+	TVOS_APP_INHOUSE = 'TVOS_APP_INHOUSE'
+	MAC_CATALYST_APP_DEVELOPMENT = 'MAC_CATALYST_APP_DEVELOPMENT'
+	MAC_CATALYST_APP_STORE = 'MAC_CATALYST_APP_STORE'
+	MAC_CATALYST_APP_DIRECT = 'MAC_CATALYST_APP_DIRECT'
+
 
 class APIError(Exception):
 	def __init__(self, error_string, status_code=None):
@@ -623,6 +639,16 @@ class Api:
 		:return: a Device resource
 		"""
 		return self._modify_resource(device, locals())
+
+	#Profile
+
+	def create_profile(self, name, profileType: ProfileType, bundleId: BundleId, devices, certificates) -> Profile:
+		"""
+		:reference: https://api.appstoreconnect.apple.com/v1/profiles
+		:return: a Profile resource
+		"""
+
+		return self._create_resource(CreateProfile, locals())
 
 	def list_profiles(self, filters=None, sort=None):
 		"""
