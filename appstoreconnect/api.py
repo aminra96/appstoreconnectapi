@@ -17,7 +17,9 @@ from .__version__ import __version__ as version
 ALGORITHM = 'ES256'
 BASE_API = "https://api.appstoreconnect.apple.com"
 
-
+class BundleIdPlatform(Enum):
+    IOS = 'IOS'
+    MAC_OS = 'MAC_OS'
 class UserRole(Enum):
 	ADMIN = auto()
 	FINANCE = auto()
@@ -626,7 +628,7 @@ class Api:
 		"""
 		return self._get_resources(Device, filters, sort)
 
-	def register_new_device(self, name: str, platform: str, udid: str) -> Device:
+	def register_new_device(self, name: str, platform: BundleIdPlatform, udid: str) -> Device:
 		"""
 		:reference: https://developer.apple.com/documentation/appstoreconnectapi/register_a_new_device
 		:return: a Device resource
